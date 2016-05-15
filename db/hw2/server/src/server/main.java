@@ -21,7 +21,7 @@ public class main {
 	private final static String DB_SERVER_ADDR = "localhost";
 	private final static String DB_DB_NAME = "db";
 	private final static String SERVER_IP = "121.140.194.45";
-	private final static int PORT = 4444;
+	private final static int PORT = 1212;
 	public static BufferedReader reader;
 	public static PrintWriter writer;
 	public final static String DELIMITER = "@@";
@@ -30,6 +30,8 @@ public class main {
 		Socket sck;
 		java.net.ServerSocket server;
 		Connection con = null; 
+		// below string variables are for preparestatements.
+		// PrepareStatment makes the query be interactive to its input.  
 		String a_query = "select Fname, Lname from EMPLOYEE, WORKS_ON, PROJECT"
 				+ " where EMPLOYEE.Dno = ? and PROJECT.Pname = ?"
 				+ " and WORKS_ON.ESsn = EMPLOYEE.Ssn and WORKS_ON.Pno = PROJECT.Pnumber"
@@ -54,6 +56,7 @@ public class main {
 		}
 		
 		try {
+			// listen
 			server = new ServerSocket(PORT);
 		} catch (IOException e1) { 
 			e1.printStackTrace();
@@ -65,11 +68,14 @@ public class main {
 			try 
 			{
 				log("waiting for new connection...");
+				// block itself until user connect
 				sck = server.accept();
+				// I will not use Nagle's algorithm.. 
 				sck.setTcpNoDelay(true);
 				reader = new BufferedReader(new InputStreamReader(sck.getInputStream()));
 				writer = new PrintWriter(sck.getOutputStream());
 				
+				// at first, read from client. 
 				String str = receive(sck);
 				if( str == null )
 				{
@@ -77,8 +83,10 @@ public class main {
 					continue;
 				}
 				
+				// unpacking process... :) the packet is sent by one by \n. 
 				str.replace("\n", "");
 				String[] str_arr = str.split(DELIMITER);
+				// debugging its input from client
 				for( int i = 0; i<str_arr.length; i++ )
 					System.out.println( i + " : " + str_arr[i]);
 				if(str_arr.length <= 0 )
@@ -88,6 +96,10 @@ public class main {
 				}
 				System.out.println(str);
 				
+				// first part of the packet is the type of which query will be executed
+				// according to textbook's Exercises
+				// and by the feature of prepareStatment, it will be replaced as client's input.
+				// so that the query can bring appropriate result to the client.
 				PreparedStatement stmt;
 				if( str_arr[0].equals("a") ) 
 				{
@@ -110,14 +122,19 @@ public class main {
 					continue;
 				}
 				
+				// submit the query, I mean execute it.
 				ResultSet rslt = stmt.executeQuery();
 				
+				// and read query's results by column index.
+				// because of the equivalence of the number of its result's columns
+				// we can assume that only two columns are all what we need.
 				String rslt_str = "";
 				while( rslt.next() )
 				{
 					rslt_str += rslt.getString(1) + " " + rslt.getString(2) + DELIMITER;
 				}
 				
+				// send the result. 
 				send(sck, rslt_str);
 				sck.close();
 			}
@@ -135,6 +152,9 @@ public class main {
         System.out.println(sdf.format(cal.getTime()) + " : " + str);
 	}
 
+	/*
+	 * receive from socket. just one line per each its execution
+	 */
 	public static String receive(Socket sck)
 	{ 
 		String tmp, str;
@@ -151,6 +171,11 @@ public class main {
 		} 
 	}
 	
+	/*
+	 * send string to socket. never use Nagle's one. never and ever.
+	 * because sometimes string that will be sent is too short 
+	 * so that Nagle prevent it from being sent.
+	 */
 	public static void send(Socket sck, String str)
 	{  
 		log("send start\n" + str);
@@ -170,27 +195,3 @@ public class main {
 		return;
 	}
 }
-
-/*
-Connection con = null;
-
-try {
-				
-	
-	String q = "show tables;";
-	PreparedStatement stmt = con.prepareStatement(q);
-	ResultSet rslt = null;
-	
-	stmt.execute();
-	
-	rslt = stmt.getResultSet();
-	
-	while(rslt.next()){
-		System.out.println(rslt.getString(1));
-	}
-	
-} catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
-*/

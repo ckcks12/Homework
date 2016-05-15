@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class client {
 	
 	private final static String SERVER_IP = "121.140.194.45";
-	private final static int PORT = 4444;
+	private final static int PORT = 1212;
 	public static BufferedReader reader;
 	public static PrintWriter writer;
 	public final static String DELIMITER = "@@";
@@ -27,6 +27,7 @@ public class client {
 		 String str = "";
 		 Scanner in = new Scanner(System.in); 
 		 
+		 // interface.
 		 System.out.println("which problem do you want to execute?");
 		 System.out.println("1. a");
 		 System.out.println("2. b");
@@ -63,11 +64,13 @@ public class client {
 			 sck = new Socket(SERVER_IP, PORT);
 			 reader = new BufferedReader(new InputStreamReader(sck.getInputStream()));
 			 writer = new PrintWriter(sck.getOutputStream());
+			 // send
 			 send(sck, str);
 			 System.out.println("°á°ú°ª");
 			 String[] str_arr = receive(sck).split(DELIMITER);
 			 for( int i=0; i<str_arr.length; i++ )
 			 {
+				 // print what it received
 				 System.out.println(str_arr[i]);
 			 }
 		 }catch(Exception e)
@@ -77,6 +80,9 @@ public class client {
 		 
 	}
  
+	/*
+	 * receive from socket. just one line per each its execution
+	 */
 	public static String receive(Socket sck)
 	{ 
 		String tmp, str;
@@ -93,6 +99,11 @@ public class client {
 		} 
 	}
 	
+	/*
+	 * send string to socket. never use Nagle's one. never and ever.
+	 * because sometimes string that will be sent is too short 
+	 * so that Nagle prevent it from being sent.
+	 */
 	public static void send(Socket sck, String str)
 	{  
 		//log("send start\n" + str);
