@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>HCI template :: 2014726062</title>
+	<!-- semantic-ui css -->
+	<link rel="stylesheet" href="semantic.min.css">
+	<!-- //semantic-ui css -->
+	<!-- skin.css -->
+	<link rel="stylesheet" href="skin1.css">
+	<!-- //skin.css -->
+</head>
+<body>
+	<div id="scene1" class="ui inverted center aligned segment">
+		<div class="ui container">
+			<div class="ui large secondary inverted pointing menu" id="menu">
+				<a href="#" class="item" data="1">skin1</a>
+				<a href="#" class="item" data="2">skin2</a>
+				<a href="#" class="item" data="3">skin3</a>
+				<div class="item">스킨 이름 - <span id="skin_name"></span></div>
+				<div class="right item">
+					<a href="http://github.com/ckcks12" class="ui inverted button">github</a>
+				</div>
+			</div>
+		</div>
+		<div class="ui text container vmiddle">
+			<h1 class="ui inverted header" id="word1">
+				과제 #2 놀로
+			</h1>
+			<div class="ui inverted header" id="word2">
+				2014726062 이은찬
+			</div>
+		</div>
+	</div>
+	<div id="scene2" class="ui container">
+		<div class="ui middle aligned stackable grid">
+			<div class="row">
+				<div class="eight wide column">
+					<h1 class="ui dividing header">
+						서론
+					</h1>
+					<br/>
+					<div class="ui container">
+						<br/><div class="ui ribbon label"><h4>프로젝트 개요</h4></div><br/><br/>
+						<p>여러분은 어딘가로 놀러갈 계획을 세울 때 어떻게 시작하시나요? 일반적으로 주변 사람들의 후기나 계획을 듣고 따라 세우는 경우가 많을 것 입니다. 왜냐하면 어디에 무엇이 있는지 정리된 사이트가 적기 때문입니다. 그렇다고 포털 사이트에 검색하자니 스팸성 광고로 가득차있어 객관적인 정보를 얻기도 힘듭니다.&nbsp;</p><p>이렇듯&nbsp;정보의 바다의 시대입니다. 새로운 정보보다 잘 정리된 정보가 필요한 시기입니다. 이에 맞추어&nbsp;<b>​놀로</b>​라는 서비스는 놀러의 사투리형으로서 놀러갈 곳을 잘 정리해서 보여주는 서비스입니다.</p><p><br></p><p></p><ul><li>어떤 사용자와 과업을 대상으로 하는가?</li></ul><div>&nbsp;놀러가고 싶은 사용자와 놀러갈 곳을 찾는 검색을 대상으로 한다.</div><div><ul><li><span style="line-height: 1.5;">어떤 데이터를 활용해야 하는가?</span></li></ul><p><span style="line-height: 1.5;">관광&nbsp;데이터와 공연 전시 데이터를 활용할 계획이다.</span></p><p></p><ul><li>어떤 서비스를 제공하려 하는가?</li></ul><p>장소기반, 위치기반 그리고 키워드 기반 검색을 통해 행사와 전시 그리고 숙박 시설에 대한 일반적인 정보, 약도(길 안내), 개장 시간 등과 함께 이미지를 제공한다.</p></div>
+						<br/><div class="ui ribbon label"><h4>사용자 과업 분석</h4></div><br/><br/>
+						<video controls="controls" style="width:100%" title="사용자 과업 분석">
+							<source src="video.webm" type="video/webm" />
+						</video>
+						<p>동영상에서 보여드린 바와 같이 기존 국내 최대 포털사임에도 불구하고 사용자가 원하는 검색 결과는 나오지 않는 것을 알 수 있습니다. 현재 주변 놀러갈 곳은 물론 유명한 지역이라고 할지라도 체계적이고 객관적인 정보는 얻기 힘듭니다. 이를 공공 데이터 기반 API를 활용하여 아래 3가지 장점으로 서비스를 개발하려 합니다.</p><p></p><ol><li>신뢰성</li><li>다양성</li><li>객관성</li></ol>
+					</div>
+				</div>
+				<div class="six wide column right aligned">
+					<canvas id="clock" width="300" height="300"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="scene3" class="ui container">
+		<h1 class="ui dividing header">
+			본론
+		</h1>
+		<br/>
+		<div class="ui container">
+			<br/><div class="ui ribbon label"><h4>공공 개방 데이터 소개</h4></div><br/><br/>
+			<img class="ui massive image" src="tourapi_structure.png"><br/><br/>
+			<p><b>놀로</b>​가 이용하는 공공 개방 데이터 API는 <b>한국 관광 공사</b>가 제공하는&nbsp;관광정보 개방 서비스인 <b>TourAPI 3.0</b>입니다. (www.visitkorea.or.kr) 약 <b>5만 8천여건</b>의 관광 정보를 제공하며 다음과 같이 8개국어를 지원하고 있습니다.</p><p></p><ol><li><span style="line-height: 1.5;">한국어</span></li><li><span style="line-height: 1.5;">영어</span></li><li><span style="line-height: 1.5;">일어</span></li><li><span style="line-height: 1.5;">중국어</span></li><li><span style="line-height: 1.5;">독일어</span></li><li><span style="line-height: 1.5;">프랑스어</span></li><li><span style="line-height: 1.5;">스페인어</span></li><li><span style="line-height: 1.5;">러시아어</span></li></ol><p><span style="line-height: 1.5;">지역, 위치 그리고 키워드 기반 관광정보 조회가 가능하며 관광정보의 종류로서는 다음과 같이 8개가 존재합니다.</span></p><p></p><ol><li><span style="line-height: 1.5;">일반 관광지</span></li><li><span style="line-height: 1.5;">문화시설</span></li><li><span style="line-height: 1.5;">행사/공연/축제</span></li><li><span style="line-height: 1.5;">여행코스</span></li><li><span style="line-height: 1.5;">레포츠</span></li><li><span style="line-height: 1.5;">숙박</span></li><li><span style="line-height: 1.5;">쇼핑</span></li><li><span style="line-height: 1.5;">음식점</span></li></ol><div>3번의 경우 시작 날짜와 끝 날짜로 검색이 가능하며 6번 숙박의 경우 한옥의 여부도 알 수 있습니다.</div><div><br></div><div>또한&nbsp;관광정보로서 다음과 같은 정보를 제공합니다.</div><div><ol><li>제목</li><li>연락처</li><li>주소</li><li>좌표(길안내 등)</li><li>개요정보</li><li>휴무일</li><li>개장시간</li><li>주차시설</li></ol><div>마지막으로 각 관광 장소의 이미지까지 지원합니다.</div></div>
+			<br/><div class="ui ribbon label"><h4>TourAPI 3.0 Test</h4></div><br/><br/>
+			<p><a href="http://ckcks12.github.io/nolo_api_test.html" target="_blank">http://ckcks12.github.io/nolo_api_test.html</a></p><p>직접 만든&nbsp;TourAPI 3.0 테스트 페이지입니다.<br></p>
+			<br/><div class="ui ribbon label"><h4>스토리보드</h4></div><br/><br/>
+			<img src="storyboard.jpg" alt="" class="ui massive image">
+			<p>사용자 과업 분석에서 조사했듯이 사람들은 놀러갈 곳을 찾을 때 두 가지의 종류로 나뉩니다.</p><p></p><ol><li>내 주변</li><li>그 외</li></ol><div>따라서 내 주변에서 놀러갈 곳 찾는 기능과 다양한 검색 옵션을 제공하여 위치기반, 장소기반, 키워드 기반으로 검색을 할 수 있도록 지원할 것입니다. 따라서 이에 맞춰 두 버튼을 첫 화면에 배치하였습니다. (1번)</div><div><br></div><div>놀러갈 곳들은 사용자에게 가장 익숙하며 스크롤 하기에 편한 Facebook의 Timeline 형태로 제공됩니다. 이는 페이지 단위가 아닌 스크롤이 끝까지 내려지면 자동으로 로딩됨으로서 페이지 전환의 기다림이나 검색 흐름의 끊김등을 방지 할 수 있습니다. (2번)</div><div><br></div><div>검색 목록에서 원하는 놀러갈 곳을 클릭했다면 그 장소에 대한 세부 설명이 제공됩니다. (3번)</div>
+		</div>
+	</div>
+	<div id="scene4" class="ui container">
+		<h1 class="ui dividing header">
+			결론
+		</h1>
+		<br/>
+		<div class="ui container">
+			<br/><div class="ui ribbon label"><h4>시각적 프로토타입</h4></div><br/><br/>
+			<a href="http://ckcks12.github.io/nolo/index.html" target="_blank">http://ckcks12.github.io/nolo/index.html</a>
+		</div>
+	</div>
+	<div id="scene5" class="ui inverted segment">
+		<div class="ui container">
+			<p>참고자료</p>
+			<p>1. 공공 데이터 포털(https://www.data.go.kr/)</p>
+			<p>2. 한국 관광 공사(http://www.visitkorea.or.kr)</p>
+		</div>
+	</div>
+	<!-- jquery js -->
+	<script type="text/javascript" src="jquery-1.12.2.min.js"></script>
+	<!-- //jquery js -->
+	<!-- semantic-ui js -->
+	<script type="text/javascript" src="semantic.min.js"></script>
+	<!-- //semantic-ui js -->
+	<!-- common.js -->
+	<script type="text/javascript" src="common.js"></script>
+	<!-- //common.js -->
+</body>
+</html>

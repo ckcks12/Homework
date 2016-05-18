@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>놀로 검색</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+	<style type="text/css">
+	/*@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);*/
+	.vmiddle
+	{ 
+		position: relative;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}   
+	div#SearchScene
+	{
+		margin-top: 50px;
+	}
+	div#SearchResultScene
+	{
+		margin-top: 50px;
+	}
+	div:last-child
+	{
+		margin-bottom: 50px;
+	}
+	</style>
+</head>
+<body>
+	<div class="ui container"> 
+		<div id="SearchScene">
+			<h4 class="ui dividing header">놀로 검색</h4>
+			<form action="search.html" class="ui form">
+				<div class="fields">
+					<div class="ten wide field">
+						<label for="">검색어</label>
+						<input type="text" name="keyword">
+					</div>
+					<div class="six wide field">
+						<label for="">(행사)기간</label>
+						<div class="two fields">
+							<div class="field">
+								<input type="date" name="start_date">
+							</div>
+							<div class="field">
+								<input type="date" name="end_date">
+							</div>
+						</div>
+					</div>
+				</div>
+			</form> 
+		</div> 
+		<div id="SearchResultScene">
+			<h4 class="ui dividing header">검색 결과</h4>
+			<div id="SearchResult">
+				<div class="ui segment">
+					<a href="view.html">
+						<div class="ui items">
+							<div class="ui item">
+								<div class="ui medium image">
+									<img src="http://tong.visitkorea.or.kr/cms/resource/52/1607952_image2_1.jpg" alt=""> 
+								</div>	
+								<div class="middle aligned content">
+									<div class="header">
+										영등포 여의도 봄꽃축제 2016
+									</div>
+									<div class="meta">
+										2016.04.04 ~ 2016.04.10
+									</div> 
+								</div>
+							</div>
+						</div> 
+					</a>
+				</div>
+				<div class="ui segment">
+					<a href="view.html">
+						<div class="ui items">
+							<div class="ui item">
+								<div class="ui medium image">
+									<img src="http://tong.visitkorea.or.kr/cms/resource/03/166803_image2_1.jpg" alt=""> 
+								</div>	
+								<div class="middle aligned content">
+									<div class="header">
+										서울세계불꽃축제 2015
+									</div>
+									<div class="meta">
+										2015.10.03(토) 13:00 ~ 22:00
+									</div> 
+								</div>
+							</div>
+						</div> 
+					</a>
+				</div>
+				<div class="ui segment">
+					<a href="view.html">
+						<div class="ui items">
+							<div class="ui item">
+								<div class="ui medium image">
+									<img src="http://tong.visitkorea.or.kr/cms/resource/94/980794_image2_1.jpg" alt=""> 
+								</div>	
+								<div class="middle aligned content">
+									<div class="header">
+										창덕궁 달빛기행 2016
+									</div>
+									<div class="meta">
+										[상반기]<br />내국인<br />- 3월 21~26일 / 입장시간 1부 19:00, 2부 20:00<br />- 4월 21~25일 / 입장시간 20:00<br />- 5월 18~22일 / 입장시간 	20:00<br />- 6월 16~20일 / 입장시간 20:00<br /><br />외국인<br />- 3월 27일 / 1부 19:00, 2부 20:00<br />- 4월 19, 20일 / 입장시간 20:00<br />- 5월 23, 24일 / 입장시간 20:00<br />- 6월 21, 22일 / 입장시간 20:00
+									</div> 
+								</div>
+							</div>
+						</div> 
+					</a>
+				</div>
+				<div class="ui segment">
+					<a href="view.html">
+						<div class="ui items">
+							<div class="ui item">
+								<div class="ui medium image">
+									<img src="http://tong.visitkorea.or.kr/cms/resource/70/2010070_image2_1.jpg" alt=""> 
+								</div>	
+								<div class="middle aligned content">
+									<div class="header">
+										물총축제 2016
+									</div>
+									<div class="meta">
+										2016.07.09 ~ 2016.07.10
+									</div> 
+								</div>
+							</div>
+						</div> 
+					</a>
+				</div>
+				<div class="ui segment">
+					<a href="view.html">
+					<div class="ui items">
+						<div class="ui item">
+							<div class="ui medium image">
+								<img src="http://tong.visitkorea.or.kr/cms/resource/87/1955687_image2_1.jpg" alt=""> 
+							</div>	
+							<div class="middle aligned content">
+								<div class="header">
+									이태원 지구촌축제 2015
+								</div>
+								<div class="meta">
+									2015.10.17(토) ~ 2015.10.18(일) 10:00 ~ 22:00
+								</div> 
+							</div>
+						</div>
+					</div> 
+					</a>
+				</div>
+				<div class="ui loading segment">
+					<div class="ui items">
+						<div class="ui item">
+							<div class="ui medium image"> 
+							</div>
+							<div class="middle aligned content">
+								<div class="header"> 
+								</div>
+								<div class="meta"> 
+								</div> 
+							</div>
+						</div>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

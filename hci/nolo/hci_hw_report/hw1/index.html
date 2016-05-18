@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>HCI hw1 :: 2014726062</title>
+	<!-- semantic-ui css -->
+	<link rel="stylesheet" href="semantic.min.css">
+	<!-- //semantic-ui css -->
+	<!-- skin.css -->
+	<link rel="stylesheet" href="skin1.css">
+	<!-- //skin.css -->
+</head>
+<body>
+	<div id="scene1" class="ui inverted center aligned segment">
+		<div class="ui container">
+			<div class="ui large secondary inverted pointing menu" id="menu">
+				<a href="#" class="item" data="1">skin1</a>
+				<a href="#" class="item" data="2">skin2</a>
+				<a href="#" class="item" data="3">skin3</a>
+				<div class="item">스킨 이름 - <span id="skin_name"></span></div>
+				<div class="right item">
+					<a href="http://github.com/ckcks12" class="ui inverted button">github</a>
+				</div>
+			</div>
+		</div>
+		<div class="ui text container vmiddle">
+			<h1 class="ui inverted header" id="word1">
+				과제 #1 보고서
+			</h1>
+			<div class="ui inverted header" id="word2">
+				2014726062 이은찬
+			</div>
+		</div>
+	</div>
+	<div id="scene2" class="ui container">
+		<div class="ui middle aligned stackable grid">
+			<div class="row">
+				<div class="eight wide column">
+					<h1 class="ui dividing header">
+						서론
+					</h1>
+					<br/>
+					<div class="ui container">
+						<p>이것은 휴먼 컴퓨터 인터페이스 수업의 첫 번째 과제입니다.</p>
+						<p>
+							보고서 템플릿을 만드는 과제였습니다. 보고서에 들어갈 내용은 아래와 같습니다.
+							<ul>
+								<li>제목 : 과제 제목</li>
+								<li>저자 : 작성자 정보</li>
+								<li>서론 : 과제 내용 및 요구 조건 분석</li>
+								<li>본문 : 수행 과정 및 결과(이미지, 비디오 포함)</li>
+								<li>결론 : 결과에 대한 분석 및 논의사항</li>
+								<li>참고 자료 : 과제 해결에 참고한 문헌과 웹문서(하이퍼링크 포함)</li>
+							</ul>
+							또한 기술적 요구 사항은 다음과 같습니다.
+							<ul>
+								<li>내용(HTML), 표현(CSS), 동작(JavaScript)의 분리</li>
+								<li>3가지 서로 다른 표현 방식 지원 (CSS 파일 3개)</li>
+								<li>Canvas 기능 활용 (JavaScript)</li>
+							</ul>
+						</p> 
+					</div>
+				</div>
+				<div class="six wide column right aligned">
+					<canvas id="clock" width="300" height="300"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="scene3" class="ui container">
+		<h1 class="ui dividing header">
+			본론
+		</h1>
+		<br/>
+		<div class="ui container"> 
+			<p>보고서 템플릿을 만드려 할 때 제일 먼저 들었던 생각은 "귀찮다"였습니다.</p>
+			<p>그러나 교수님의 명강의를 들으니 꿈틀거리는 제 학고열을 막을 순 없었습니다.</p>
+			<p>그렇지만 웹의 디자인은 굉장히 손이 많이 가지요. 크로스 브라우저를 고려한다던지 등.</p>
+			<p>또한 웹의 생산성은 생명이라고 생각합니다. 그래서 CSS library를 활용하기로 했습니다.</p>
+			<p>제가 사용한 CSS library는 <a href="http://www.semantic-ui.com">Semantic-UI</a>입니다.</p>
+			<p>Semantic-UI(이하 시맨틱)을 사용하여 전체적인 레이아웃과 디자인을 동시에 잡았습니다.</p>
+			<p>그리고 skin 단위로 scene1의 배경색과 페이지 전체의 폰트 그리고 스킨 이름을 커스터마이징했습니다.</p>
+			<p>또한 canvas 사용을 위해 <a href="http://www.w3schools.com">W3Schools</a>(이하 w3)에서 공부했습니다.</p>
+			<p>마지막으로 앞으로의 과제를 위해 웹 에디터 툴을 정하고 익혔습니다.</p>
+			<p>저는 <a href="http://sublimetext.com">SublimeText</a>(이하 st)를 익혔습니다.(아래 사진 첨부)</p>
+			<img src="a.png" width="700px"> 
+		</div>
+	</div>
+	<div id="scene4" class="ui container">
+		<h1 class="ui dividing header">
+			결론
+		</h1>
+		<br/>
+		<div class="ui container"> 
+			<p>canvas를 이용해 시계를 그릴때 마치 절차지향 프로그래밍을 하는 것 같아 감회가 새로웠습니다.</p>
+			<p>또한 상단의 skin1, skin2, skin3를 누르면 각각 해당 skin으로 자동으로 로딩을 하도록 코딩을 했는데</p>
+			<p>굉장히 뿌듯하고 좋았습니다. css의 content property로 스킨 이름까지 출력하니 좋았습니다.</p>
+			<p></p>
+			<p>하지만 아쉬운 점이 있습니다.</p>
+			<p>바로 skin 별로 다양한 디자인을 보여주지 못하는 점입니다.</p>
+			<p>사실 css로 구조까지도 바뀌는 듯한 모습을 보여줄 수 도 있고</p>
+			<p>css3의 animation을 보여줄 수 도 있지만</p>
+			<p>빈 도화지에 그림을 그린다는 것이 어려운 것처럼</p>
+			<p>디자이너의 와이어프레임 없이 직접 웹 디자인을 한다는 것이 생각보다 어려웠습니다.</p>
+			<p>단순히 코딩 능력에만 치우치지 말고</p>
+			<p>다양한 디자인을 접하며 감각을 키워가야 한다고 생각이 됩니다.</p>
+		</div>
+	</div>
+	<div id="scene5" class="ui inverted segment">
+		<div class="ui container">
+			<p>참고자료</p>
+			<p>1. 이강훈 교수님의 온라인 <b>명강의</b>(유캠퍼스의 post 방식의 매핑으로 다이렉트 링크는 없습니다)</p>
+			<p>2. Semantic-UI(http://semantic-ui.com)</p>
+			<p>3. W3Schools(http://w3schools.com)</p>
+			<p>4. SublimeText(http://sublimetext.com)</p>
+		</div>
+	</div>
+	<!-- jquery js -->
+	<script type="text/javascript" src="jquery-1.12.2.min.js"></script>
+	<!-- //jquery js -->
+	<!-- semantic-ui js -->
+	<script type="text/javascript" src="semantic.min.js"></script>
+	<!-- //semantic-ui js -->
+	<!-- common.js -->
+	<script type="text/javascript" src="common.js"></script>
+	<!-- //common.js -->
+</body>
+</html>
