@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "hw1.h"
+
+#define insertIntoTail(x1, x2, x3) InsertObjectToTail(x1, x2, x3)
+#define insertIntoHead(x1, x2, x3) InsertObjectToHead(x1, x2, x3)
+#define getObjByNum(x) GetObjectByNum(x)
+#define delObj(x) DeleteObject(x)
+#define pushToQueue(x) InsertObjectIntoObjFreeList(x)
+#define popFromQueue() GetObjectFromObjFreeList()
+
+/**
+generate an object with increasing value
+@return Object *	object pointer on success
+			otherwise, NULL
+**/
+Object * generateObject()
+{
+	static int	rnd_val = 0;
+	Object 		*obj;
+
+	rnd_val++;
+	obj = (Object *)malloc( sizeof(Object) );
+	
+	//if malloc() succeed
+	if( obj != NULL )
+	{
+		obj->objnum = rnd_val;
+		return obj;
+	}
+	//if malloc() failed
+	else
+	{
+		return NULL;
+	}
+}
+
+/**
+show the lists status
+**/
+void showListStatus()
+{
+	int			i;
+
+	printf("=========================================\n");
+	printf("\t\thead\t\ttail\n");
+	for( i=0; i<HASH_TBL_SIZE; i++ )
+	{
+		printf("hash[%d]\t\t%p\t\t%p\n", i, ppHashHead[i], ppHashTail[i]);
+	}
+	for( i=0; i<=2; i++ )
+	{
+		printf("ObjList%d\t%p\t\t%p\n", i, ppObjListHead[i], ppObjListTail[i]);
+	}
+	printf("=========================================\n");	
+}
+
+void main(void)
+{
+	Object		*tmp_obj_list[24];
+	int		i;
+	Object		*obj;
+
+	for( i = 0; i<24; i++ )
+	{
+		tmp_obj_list[i] = generateObject();
+		printf("object[%d] = %p\n", i, tmp_obj_list[i]);
+		pushToQueue(tmp_obj_list[i]);
+//		printf("Queue tail = %p\n", ppObjListTail[2]);
+	}
+
+	printf("pushed completed\n");
+	showListStatus();
+	
+	for( i=0; i<24; i++ )
+	{
+		obj = popFromQueue();
+		insertIntoHead(obj, i+1, OBJ_LIST1);				
+//		printf("obj_list0 tail = %p\n", ppObjListTail[0]);
+	}
+
+	printf("inserted completed\n");
+	showListStatus();
+
+	for( i=0; i<24; i++ )
+	{
+		obj = getObjByNum(i+1);
+//		printf("getObjByNum(%d)->objnum = %d\n", i+1, obj->objnum);
+	}
+
+	printf("getObjByNum completed\n");
+	showListStatus();
+
+	for( i=0; i<24; i++ )
+	{
+		obj = getObjByNum(i+1);
+		delObj(obj);
+//		printf("Deleted!! obj_list0 tail = %p\n", ppObjListTail[0]);
+	}		
+
+	printf("delete completed\n");
+	showListStatus();
+
+	for( i = 0; i<24; i++ )
+	{
+		free(tmp_obj_list[i]);
+	}
+}
+
+
