@@ -46,6 +46,11 @@ var PlaceCol = Backbone.Collection.extend(
     },
     parse: function(d)
     {
+        if( d.response.body.items.item === undefined || d.response.body.items.item.length == 0 )
+        {
+            $("#SearchResult").html("<div class='ui center aligned'>검색 결과가 없습니다</div>");
+            return;
+        }
         return d.response.body.items.item;
     }
 });
@@ -86,9 +91,6 @@ var PlaceView = Backbone.View.extend(
 var place_col = new PlaceCol();
 window.view_arr = [];
 
-
-
-//load();
 function load()
 {
     place_col.fetch(

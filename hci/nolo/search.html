@@ -42,6 +42,10 @@
 						<label for="">검색어</label>
 						<input type="text" name="keyword">
 					</div>
+                    <div class="two wide field">
+                        <label>&nbsp;</label>
+                        <button type="button" class="ui inverted violet button" onclick="loadByKeyword(document.querySelector('input[name=\'keyword\']').value);">검색</button>    
+                    </div>
 					<div class="six wide field">
 						<label for="">지하철역</label>
                         <div class="ui search">
@@ -51,6 +55,10 @@
                             <div class="results"></div>
                         </div>
 					</div>
+                    <div class="two wide field">
+                        <label>&nbsp;</label>
+                        <button type="button" class="ui inverted violet button" onclick="loadByStation(document.querySelector('input[name=\'station\']').value);">검색</button>    
+                    </div>
 				</div>
 			</div> 
 		</div> 
@@ -98,16 +106,21 @@
 		{
 			if( k.keyCode == 13 )
 			{
-				place_col.reset();
-				place_col.page_no = 1;
-				place_col.keyword = this.value;
-				place_col.url = function()
-				{
-					return window.api.searchKeyword(10, this.page_no++, "B", "Y", "", this.keyword);
-				}
-				load();
+				loadByKeyword(this.value);
 			}
 		});
+
+        function loadByKeyword(keyword)
+        {
+            place_col.reset();
+            place_col.page_no = 1;
+            place_col.keyword = keyword;
+            place_col.url = function()
+            {
+                return window.api.searchKeyword(10, this.page_no++, "B", "Y", "", this.keyword);
+            }
+            load();
+        }
 
 		$(window).scroll(function() {
 		    if( window.scroll_detect === undefined )
