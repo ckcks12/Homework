@@ -46,7 +46,7 @@ var PlaceCol = Backbone.Collection.extend(
     },
     parse: function(d)
     {
-        if( d.response.body.items.item === undefined || d.response.body.items.item.length == 0 )
+        if( d.response.body.items.item === undefined )
         {
             $("#SearchResult").html("<div class='ui center aligned'>검색 결과가 없습니다</div>");
             return;
