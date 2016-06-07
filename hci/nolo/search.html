@@ -45,9 +45,8 @@
 					<div class="six wide field">
 						<label for="">지하철역</label>
                         <div class="ui search">
-                            <div class="ui icon input">
-                                <input type="text" class="prompt" name="station">
-                                <i class="search icon"></i>
+                            <div class="ui input">
+                                <input type="text" class="prompt" name="station"> 
                             </div>
                             <div class="results"></div>
                         </div>
@@ -129,8 +128,12 @@
             {
                 return false;
             }
-            var idx = _.findIndex(window.station_gps, (s)=>s.STATION_NM == this.value);
-            console.log(idx);
+            loadByStation(this.value);
+        });
+
+        function loadByStation(station_name)
+        {
+            var idx = _.findIndex(window.station_gps, (s)=>s.STATION_NM == station_name);
             place_col.reset();
             place_col.page_no = 1;
             place_col.map_x = window.station_gps[idx].YPOINT_WGS;
@@ -140,7 +143,9 @@
                 return window.api.locationBasedList(10, this.page_no++, "B", "Y", "", this.map_x, this.map_y, 1000);
             }
             load();
-        });
+        }
+
+        $("a.result")
 
 		$(document).ready(function()
 		{
@@ -172,7 +177,10 @@
                 searchFields:
                 [
                     "STATION_NM"
-                ]
+                ],
+                onSelect: function(result, response){
+                    loadByStation(result.STATION_NM);
+                }
             });
 		});
 
