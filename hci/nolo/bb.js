@@ -18,6 +18,7 @@ var Place = Backbone.Model.extend(
             url: window.api.detailIntro(10, 1, d.contentid, d.contenttypeid, "Y"),
             success: (k) =>
             {
+                console.log(k);
                 k = k.response.body.items.item;
                 _.extend(this.attributes, k);
                 if( k.playtime !== undefined )
@@ -80,18 +81,7 @@ var PlaceView = Backbone.View.extend(
 var place_col = new PlaceCol();
 window.view_arr = [];
 
-$(window).scroll(function() {
-    if( window.scroll_detect === undefined )
-    {
-        window.scroll_detect = true;
-    }
-    if($(window).scrollTop() + $(window).height() >= $(document).height() - 1
-        && window.scroll_detect) {
-        load();
-        window.scroll_detet = false;
-        setTimeout(()=>window.scroll_detect = true, 2000);
-    }
-});
+
 
 //load();
 function load()

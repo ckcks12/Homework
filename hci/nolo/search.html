@@ -36,7 +36,7 @@
 	<div class="ui container"> 
 		<div id="SearchScene">
 			<h4 class="ui dividing header">놀로 검색</h4>
-			<form action="search.html" class="ui form">
+			<div class="ui form">
 				<div class="fields">
 					<div class="ten wide field">
 						<label for="">검색어</label>
@@ -54,7 +54,7 @@
 						</div>
 					</div>
 				</div>
-			</form> 
+			</div> 
 		</div> 
 		<div id="SearchResultScene">
 			<h4 class="ui dividing header">검색 결과</h4>
@@ -93,7 +93,37 @@
 	<script type="text/javascript" src="VisitKoreaAPI.js"></script>
 	<script type="text/javascript" src="bb.js"></script>
 	<script type="text/javascript">
-		
+		$("input[name='keyword']").keypress(function(k)
+		{
+			if( k.keyCode == 13 )
+			{
+				place_col.resset();
+				place_col.set("page_no", 1);
+				place_col.set("keyword", this.value);
+				place_col.url = function()
+				{
+					return window.api.searchKeyword(10, this.page_no++, "B", "Y", "", this.value);
+				}
+			}
+		});
+
+		$(window).scroll(function() {
+		    if( window.scroll_detect === undefined )
+		    {
+		        window.scroll_detect = true;
+		    }
+		    if($(window).scrollTop() + $(window).height() >= $(document).height() - 1
+		        && window.scroll_detect) {
+		        load();
+		        window.scroll_detet = false;
+		        setTimeout(()=>window.scroll_detect = true, 2000);
+		    }
+		});
+
+		$(document).ready(function()
+		{
+			load();
+		});
 	</script>
 </body>
 </html>
