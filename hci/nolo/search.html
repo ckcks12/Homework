@@ -68,19 +68,21 @@
 	<!-- ///////////////////////////////////////////////////////////////// -->
 	<!-- PlaceView -->
 	<script type="text/template" id="PlaceView">
-		<div class="ui segment">
-			<div class="ui items">
-				<div class="ui item">
-					<div class="ui medium image">
-						<img src="<%=image_url%>" alt=""> 
-					</div>	
-					<div class="middle aligned content">
-						<div class="header"><%=title%></div>
-						<div class="meta"><%=content%></div> 
+		<a href="view.html?contentId=<%=contentid%>">
+			<div class="ui segment">
+				<div class="ui items">
+					<div class="ui item">
+						<div class="ui medium image">
+							<img src="<%=image_url%>" alt=""> 
+						</div>	
+						<div class="middle aligned content">
+							<div class="header"><%=title%></div>
+							<div class="meta"><%=content%></div> 
+						</div>
 					</div>
-				</div>
-			</div> 
-		</div>
+				</div> 
+			</div>
+		</a>
 	</script>
 	<!-- //PlaceView -->
 	<!-- ///////////////////////////////////////////////////////////////// -->

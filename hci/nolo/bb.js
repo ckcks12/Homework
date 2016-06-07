@@ -4,7 +4,8 @@ var Place = Backbone.Model.extend(
     {
         title: "",
         content: "",
-        image_url: ""
+        image_url: "",
+        contentid: ""
     },
     initialize: function()
     {
