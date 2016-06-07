@@ -97,13 +97,14 @@
 		{
 			if( k.keyCode == 13 )
 			{
-				place_col.resset();
-				place_col.set("page_no", 1);
-				place_col.set("keyword", this.value);
+				place_col.reset();
+				place_col.page_no = 1;
+				place_col.keyword = this.value;
 				place_col.url = function()
 				{
-					return window.api.searchKeyword(10, this.page_no++, "B", "Y", "", this.value);
+					return window.api.searchKeyword(10, this.page_no++, "B", "Y", "", this.keyword);
 				}
+				load();
 			}
 		});
 
@@ -112,10 +113,10 @@
 		    {
 		        window.scroll_detect = true;
 		    }
-		    if($(window).scrollTop() + $(window).height() >= $(document).height() - 1
+		    if($(window).scrollTop() + $(window).innerHeight() >= $(document).height() - 1
 		        && window.scroll_detect) {
-		        load();
 		        window.scroll_detet = false;
+		        load();
 		        setTimeout(()=>window.scroll_detect = true, 2000);
 		    }
 		});

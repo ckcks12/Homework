@@ -16,8 +16,7 @@ var VisitKoreaAPI = function()
 {
     this.createUrl = function(api_name, arg_name, arg_val)
     {
-        //var url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/" + api_name + "?ServiceKey=tM%2BbwWQD383lWLKYsJUEFDxC2NoGAvT5rTymTZpfaknMV4FYXam%2FzA3TsqAp%2FkfPbM0tlV%2BaLsut%2B8TigqmgSg%3D%3D&MobileOS=ETC&MobileApp=Nolo&_type=json";
-        var url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/" + api_name + "?ServiceKey=인증키&MobileOS=ETC&MobileApp=Nolo&_type=json";
+        var url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/" + api_name + "?ServiceKey=tM%2BbwWQD383lWLKYsJUEFDxC2NoGAvT5rTymTZpfaknMV4FYXam%2FzA3TsqAp%2FkfPbM0tlV%2BaLsut%2B8TigqmgSg%3D%3D&MobileOS=ETC&MobileApp=Nolo&_type=json";
 
         for( i=0; i<arg_name.length; i++ )
         {

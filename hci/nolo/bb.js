@@ -6,6 +6,10 @@ var Place = Backbone.Model.extend(
         content: "",
         image_url: ""
     },
+    initialize: function()
+    {
+        this.collection.on("reset", ()=>this.trigger("reset"));
+    },
     parse: function(d)
     {
         if( this.image_url === undefined || this.image_url == "" )
@@ -18,7 +22,6 @@ var Place = Backbone.Model.extend(
             url: window.api.detailIntro(10, 1, d.contentid, d.contenttypeid, "Y"),
             success: (k) =>
             {
-                console.log(k);
                 k = k.response.body.items.item;
                 _.extend(this.attributes, k);
                 if( k.playtime !== undefined )
@@ -56,6 +59,7 @@ var PlaceView = Backbone.View.extend(
     initialize: function()
     {
         this.model.on('change', this.render, this);
+        this.model.on("reset", ()=>this.remove());
         this.render();
     },
     events:
@@ -88,7 +92,6 @@ function load()
 {
     place_col.fetch(
     {
-        reset: true,
         success: function()
         {
             place_col.each(function(m)
