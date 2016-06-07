@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>놀로 영등포 여의도 봄꽃축제 2016</title>
+	<title>놀로 - </title>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
 	<style type="text/css">
 	/*@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);*/
@@ -28,15 +28,15 @@
 	<div class="ui container">
 		<div id="ViewScene">
 			<div class="ui piled segment">
-				<h1 class="ui center aligned header">영등포 여의도 봄꽃축제 2016</h1>
+				<h1 class="ui center aligned header" id="title"></h1>
 				<h4 class="ui dividing header">설명</h4>
-				<p>매년 따뜻한 봄기운이 살포시 느껴질 때면 여의도에서는 우리나라 제주도가 원산지인 왕벚나무 1,886주를 비롯, 진달래, 개나리, 철쭉, 조팝나무, 말발도리 등 13종 87,859주의 봄꽃이 만개해 넓게 트인 한강을 배경으로 봄의 항연이 펼쳐진다. 2005년부터 시작하여 올해로 12회째 맞이 하는 &lt;영등포 여의도 봄꽃축제&gt;는 도시 속에서 한강과 벚꽃, 그리고 사람의 아름다운 몸짓이 조화를 이루어 매년 많은 상춘객들의 사람을 받고 있으며 국제적인 문화축제로 발전하고 있다.<br></p>
+				<p id="overview"></p>
 				<h4 class="ui dividing header">가는 길</h4>
 				<p>1. 지하철 이용시<br />&nbsp;&nbsp;(1) 2호선 당산역(4번 출구) 약 도보 20분<br />&nbsp;&nbsp;(2) 5호선 여의나루역(1번 출구) 약 도보20분<br />&nbsp;&nbsp;(3) 5호선 여의도역(5번 출구) → 162, 262, 461번 버스이용 국회앞 하차<br />&nbsp;&nbsp;(4) 9호선 국회의사당연(1, 6번 출구) 약 도보 5분<br /><br />2. 버스 이용시<br />&nbsp;(1) 여의도순복음교회 : 463, 461, 753, 5615, 5678, 5633, 5713, 6623, 7613번<br />&nbsp;(2) 국회의사당 : 153, 162, 263, 362, 461, 5615, 5618, 6623, 8153번<br></p>
 				<h4 class="ui dividing header">위치 및 연락처</h4>
-				서울특별시 영등포구 국회대로 (여의도동)<br/>
-				영등포구청 02-2670-3114<br/>
-				영등포구청 문화관광<a href="http://tour.ydp.go.kr" target="_blank" title="새창:영등포 문화관광 홈페이지로 이동">http://tour.ydp.go.kr<br />
+				<p id="location"></p>
+				<p id="tel"></p>
+				<p id="homepage"></p>
 				<h4 class="ui dividing header">사진</h4>
 				<img src="http://tong.visitkorea.or.kr/cms/resource/39/1607939_image2_1.jpg" alt="" class="ui massive centered image">
 				<img src="http://tong.visitkorea.or.kr/cms/resource/44/1607944_image2_1.jpg" alt="" class="ui massive centered image">
@@ -53,8 +53,25 @@
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+	<script type="text/javascript" src="VisitKoreaAPI.js"></script>
 	<script type="text/javascript">
-		
+		window.contentid = location.href.split("contentid=")[1];
+
+		$.get(
+		{
+			url: window.api.detailCommon(10, 1, window.contentid, "", "Y", "Y", "Y", "Y", "Y", "Y", "Y"),
+			success: function(d)
+			{
+				d = d.response.body.items.item;
+				$("title").text("놀로 - " + d.title);
+				$("#title").text(d.title);
+				$("#overview").html(d.overview);
+				$("#location").text(d.addr1);
+				$("#tel").text(d.telname + " : " + d.tel);
+				$("#homepage").html(d.homepage);
+				console.log(d);
+			}
+		});
 	</script>
 </body>
 </html>
