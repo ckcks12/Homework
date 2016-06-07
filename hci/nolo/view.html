@@ -47,11 +47,11 @@
 			success: function(d)
 			{
 				d = d.response.body.items.item;
+                // console.log(d);
 				$("title").text("놀로 - " + d.title);
 				$("#title").text(d.title);
                 addView("설명", d.overview);
-                addView("홈페이지", d.homepage);
-				//console.log(d);
+                addView("홈페이지", d.homepage); 
 
                 // custom detail
                 var detail =
@@ -124,6 +124,7 @@
                     success: (dd) => 
                     {
                         dd = dd.response.body.items.item;
+                        //console.log(dd);
                         var key = Object.keys(detail);
                         for( var i=0; i<key.length; i++ )
                         {
@@ -137,17 +138,19 @@
                         $.get(
                         {
                             url: window.api.detailImage(10, 1, d.contentid, "", "Y"),
-                            success: function(d)
+                            success: (ddd) =>
                             {
-                                d = d.response.body.items.item;
+                                ddd = ddd.response.body.items.item;
                                 var img_url_arr = [];
-                                for( var i=0; i<d.length; i++ )
+                                for( var i=0; i<ddd.length; i++ )
                                 {
-                                    img_url_arr[img_url_arr.length] = d[i].originimgurl;
+                                    img_url_arr[img_url_arr.length] = ddd[i].originimgurl;
                                 }
                                 addImgView(img_url_arr);
 
                                 // add map
+                                d.mapx = parseFloat(d.mapx);
+                                d.mapy = parseFloat(d.mapy);
                                 addGoogleMap(d.mapx, d.mapy);
                             }    
                         });
