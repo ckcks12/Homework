@@ -1,0 +1,63 @@
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+/**
+ * forcely
+ */
+* 
+{
+	font-family: 'Jeju Gothic', sans-serif !important;
+}
+
+#skin_name::before
+{
+	content: "다음" !important;
+}
+
+/**
+ * set its position vertically middle related to its parent element
+ */
+.vmiddle
+{ 
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+} 
+
+#scene1
+{
+	margin-bottom: 50px;
+	height: 400px;
+	background-color: rgb(7, 141, 255); /* naver color */
+}
+#scene1 #word1
+{
+	font-size: 5rem;
+}
+
+#scene2
+{
+	margin-bottom: 50px;
+}
+
+#scene3
+{
+	margin-bottom: 50px;
+}
+
+#scene4
+{
+	margin-bottom: 50px;
+}
+
+#scene5
+{
+	margin: 0px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+#clock
+{
+	background-color: black;
+}
