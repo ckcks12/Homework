@@ -449,7 +449,7 @@ Buf* BufFind(int blkno)
 {
 	//check count of buffers in free list
 	int free_buf_cnt = countFree();
-	if( free_buf_cnt <= MAX_BUF_NUM / 10 )
+	if( free_buf_cnt <= MAX_BUFLIST_NUM / 10 )
 	{
 		//wake daemon
 		semaUnlock(SEMA_IDX_DAEMON);
@@ -541,10 +541,6 @@ void BufInit(void)
 		pBuf->pMem = malloc(BLOCK_SIZE);
 		pushFree(pBuf);
 	}
-
-	//init device
-	DevCreateDisk();
-	DevOpenDisk();
 
 	//init semaphore
 	semaInit();
