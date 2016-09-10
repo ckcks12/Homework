@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:background="#F00"
+        android:text="RED"
+        android:id="@+id/RED"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/RED"
+        android:layout_below="@+id/RED"
+        android:background="#FC0"
+        android:text="ORANGE"
+        android:id="@+id/ORANGE"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ORANGE"
+        android:layout_below="@+id/ORANGE"
+        android:background="#FF0"
+        android:text="YELLOW"
+        android:id="@+id/YELLOW"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/YELLOW"
+        android:layout_below="@+id/YELLOW"
+        android:background="#008000"
+        android:text="GREEN"
+        android:id="@+id/GREEN"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/GREEN"
+        android:layout_below="@+id/GREEN"
+        android:background="#00f"
+        android:text="BLUE"
+        android:id="@+id/BLUE"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/BLUE"
+        android:layout_below="@+id/BLUE"
+        android:background="#800080"
+        android:text="PURPLE"
+        android:id="@+id/PURPLE"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/PURPLE"
+        android:layout_below="@+id/PURPLE"
+        android:background="#FFCCFF"
+        android:text="VIOLET"
+        android:id="@+id/VIOLET"/>
+
+</RelativeLayout>
