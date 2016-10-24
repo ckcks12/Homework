@@ -7,13 +7,12 @@ int main()
 {
     DoublyLinkedList<int> list;
 
-    list.printListTrace();
     list.insert(1);
-    list.remove(0);
-    list.printListTrace();
-    list.remove(0);
-    list.printListTrace();
-    list.remove(0);
-    list.printListTrace();
-    cout << "hi" << endl;
+    list.insert(2);
+    list.insert(2);
+    list.insert(3);
+
+    cout << list.at(1) << endl;
+    cout << list.search(2) << endl;
+
 }

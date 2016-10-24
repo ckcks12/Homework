@@ -176,4 +176,20 @@ public:
         size--;
     }
 
+    DoublyLinkedListNode<T>* search(T data)
+    {
+        if( isEmpty() )
+            return NULL;
+
+        DoublyLinkedListNode<T>* node = header;
+        for( size_t i = 0; i < size; i++ )
+        {
+            if( node->data == data )
+                return node;
+            node = node->next;
+        }
+
+        return NULL;
+    }
+
 };
