@@ -9,11 +9,11 @@ int main()
 
     list.printListTrace();
     list.insert(1);
+    list.remove(0);
     list.printListTrace();
-    list.insert(3);
+    list.remove(0);
     list.printListTrace();
-    list.insert(1, 2);
+    list.remove(0);
     list.printListTrace();
-    list.remove(3);
-    list.printListTrace();
+    cout << "hi" << endl;
 }

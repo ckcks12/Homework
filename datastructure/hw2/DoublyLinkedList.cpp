@@ -155,14 +155,18 @@ public:
         prev = node->prev;
         next = node->next;
 
-        if( prev != NULL )
+        if( prev != NULL && next != NULL )
+        {
             prev->next = next;
-        else
-            next->prev = NULL;
-        if( next != NULL )
             next->prev = prev;
-        else
-            prev->next = NULL;
+        }
+        else if( ! (prev == NULL && next == NULL) )
+        {
+            if( prev == NULL )
+                next->prev = NULL;
+            if( next == NULL )
+                prev->next = NULL;
+        }
 
         if( idx == 0 )
             header = next;
