@@ -171,7 +171,6 @@ public:
         if( idx == 0 )
             header = next;
 
-
         delete node;
         size--;
     }
@@ -191,5 +190,4 @@ public:
 
         return NULL;
     }
-
 };
