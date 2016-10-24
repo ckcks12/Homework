@@ -1,18 +1,21 @@
 #include <iostream>
-#include "DoublyLinkedList.cpp"
+#include "Stack.cpp"
 
 using namespace std;
 
 int main()
 {
-    DoublyLinkedList<int> list;
+    Stack<int> stack;
 
-    list.insert(1);
-    list.insert(2);
-    list.insert(2);
-    list.insert(3);
-
-    cout << list.at(1) << endl;
-    cout << list.search(2) << endl;
+    stack.printTrace();
+    stack.push(1);
+    stack.push(2);
+    stack.printTrace();
+    stack.push(3);
+    stack.printTrace();
+    cout << "pop() : " << stack.pop() << endl;
+    stack.printTrace();
+    stack.pop();stack.pop();
+    stack.printTrace();
 
 }
