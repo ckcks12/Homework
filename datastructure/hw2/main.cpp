@@ -1,21 +1,35 @@
 #include <iostream>
 #include "Stack.cpp"
+#include <string>
 
 using namespace std;
 
 int main()
 {
-    Stack<int> stack;
+    /**
+     * 1. transform the infix to the postfix
+     * 2. evaluate the postfix
+     */
 
-    stack.printTrace();
-    stack.push(1);
-    stack.push(2);
-    stack.printTrace();
-    stack.push(3);
-    stack.printTrace();
-    cout << "pop() : " << stack.pop() << endl;
-    stack.printTrace();
-    stack.pop();stack.pop();
-    stack.printTrace();
+    Stack<string> postfix_stack;
+    Stack<string> eval_stack;
+    string infix_exp;
+    string postfix_exp;
 
+    cout << "input infix expression" << endl;
+    cout << ">>> ";
+    cin >> infix_exp;
+
+    // validation
+    if( infix_exp.length() == 0 )
+    {
+        cout << "wrong infix expression" << endl;
+        return -1;
+    }
+
+    // transformation
+    for( size_t i = 0; i < infix_exp.length(); i++ )
+    {
+        char& tkn = infix_exp.at(i);
+    }
 }
