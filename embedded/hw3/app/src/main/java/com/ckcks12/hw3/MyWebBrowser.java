@@ -46,6 +46,12 @@ public class MyWebBrowser extends AppCompatActivity implements View.OnClickListe
             txt1.setText(url);
             webview.loadUrl(url);
         }
+        else if( intent.getAction().equals(Intent.ACTION_SEND) )
+        {
+            String url = intent.getStringExtra(Intent.EXTRA_TEXT);
+            txt1.setText(url);
+            webview.loadUrl(url);
+        }
     }
 
     @Override
