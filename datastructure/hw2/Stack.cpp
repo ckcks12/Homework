@@ -68,4 +68,16 @@ public:
         list.remove(list.size - 1);
         return data;
     }
+
+    T peek()
+    {
+        if( isEmpty() )
+        {
+            cerr << "peak() : empty stack" << endl;
+            return 0; // failed to peek
+        }
+
+        T data = list.at(list.size - 1)->data;
+        return data;
+    }
 };

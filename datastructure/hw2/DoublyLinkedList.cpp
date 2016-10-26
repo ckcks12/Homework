@@ -43,7 +43,7 @@ public:
         } while( node != NULL );
     }
 
-    bool isEmpty()
+    bool isEmpty() const
     {
         return size == 0;
     }
@@ -67,7 +67,7 @@ public:
         cout << "NULL" << endl << endl;
     }
 
-    DoublyLinkedListNode<T>* at(size_t idx)
+    DoublyLinkedListNode<T>* at(size_t idx) const
     {
         if( isEmpty() || idx >= size )
             return NULL;
@@ -175,7 +175,7 @@ public:
         size--;
     }
 
-    DoublyLinkedListNode<T>* search(T data)
+    DoublyLinkedListNode<T>* search(T data) const
     {
         if( isEmpty() )
             return NULL;
