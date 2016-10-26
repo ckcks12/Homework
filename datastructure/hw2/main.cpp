@@ -64,8 +64,9 @@ int main()
             while( i < infix_exp.length() && getType(infix_exp.at(i)) == 0 )
                 tmp += infix_exp.at(i++);
 
+            value = tmp;
+
             // variable
-            //if( ! isdigit(tmp.at(0)) )
             if( isalpha(tmp.at(0)) )
             {
                 cout << "input variable value - " << tmp << " : ";
@@ -113,6 +114,7 @@ int main()
     {
         tmp_stack.push(postfix_stack.peek());
         postfix_exp += postfix_stack.pop();
+        postfix_exp += " "; // beautify
     }
 
     cout << "postfix expression : " << postfix_exp << endl;
