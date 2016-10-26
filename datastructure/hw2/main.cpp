@@ -60,6 +60,7 @@ int main()
         if( type == 0 )
         {
             string tmp = "";
+            string value = "";
             while( i < infix_exp.length() && getType(infix_exp.at(i)) == 0 )
                 tmp += infix_exp.at(i++);
 
@@ -68,10 +69,10 @@ int main()
             if( isalpha(tmp.at(0)) )
             {
                 cout << "input variable value - " << tmp << " : ";
-                cin >> tmp;
+                cin >> value;
             }
 
-            tmp_stack.push(tmp);
+            tmp_stack.push(value);
             postfix_exp += tmp;
             postfix_exp += " "; // beautify
             i--; // for's 3th statement will increase it
