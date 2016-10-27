@@ -49,7 +49,7 @@ Node* dll_at(HeadNode* hn, size_t idx)
     return n;
 }
 
-int dll_index(HeadNode* hn, Node** target)
+size_t dll_index(HeadNode* hn, Node** target)
 {
     size_t i;
     Node* n;
