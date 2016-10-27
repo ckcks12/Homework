@@ -7,6 +7,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include "doubly_linked_list_string.c"
 
 #define MAX_PATH_LEN 8192
 
@@ -37,13 +38,44 @@ void ls()
     closedir(dir);
 }
 
+int lessPredict(NodeDataType d1, NodeDataType d2)
+{
+    if( strcmp(d1, d2) > 0 )
+	return 1;
+    else 
+	return 0;
+}
+
 void sort()
 {
     char data[MAX_PATH_LEN];
+    HeadNode* hn;
+    Node* n;
+    size_t idx;
+
+    dll_init(&hn);
+
     while( fgets(data, MAX_PATH_LEN, stdin) != NULL )
     {
-	printf("%s", data);
+	n = dll_searchPredict(hn, data, &lessPredict);
+	if( n == NULL )
+	{
+	    dll_insert(hn, hn->size, data);
+	}
+	else
+	{
+	    idx = dll_index(hn, &n);
+	    dll_insert(hn, idx, data);
+	}
     }
+
+    //dll_printList(hn);
+    for( idx=0; idx<hn->size; idx++ )
+    {
+	printf("%s", dll_at(hn, idx)->data);
+    }
+
+    dll_close(&hn);
 }
 
 int main()
