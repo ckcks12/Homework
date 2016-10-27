@@ -196,31 +196,3 @@ void dll_printList(HeadNode* hn)
 
     printf("\n\n");
 }
-
-int main()
-{
-    HeadNode* hn;
-
-    dll_init(&hn);
-
-    dll_printList(hn);
-    dll_insert(hn, 0, "0");
-    dll_printList(hn);
-    dll_insert(hn, 0, "-1");
-    dll_printList(hn);
-    dll_insert(hn, 1, "a");
-    dll_printList(hn);
-    dll_insert(hn, 2, "c");
-    dll_printList(hn);
-    dll_insert(hn, 2, "b");
-    dll_printList(hn);
-    dll_remove(hn, 0);
-    dll_printList(hn);
-    printf("find b's next : %s\n", dll_search(hn, "b")->next->data);
-    dll_remove(hn, 3);
-    dll_printList(hn);
-    dll_removeAll(hn);
-    dll_printList(hn);
-
-    dll_close(&hn);
-}
