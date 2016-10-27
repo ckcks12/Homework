@@ -49,6 +49,18 @@ Node* dll_at(HeadNode* hn, size_t idx)
     return n;
 }
 
+int dll_index(HeadNode* hn, Node** target)
+{
+    size_t i;
+    Node* n;
+    for( i=0; i<hn->size; i++ )
+    {
+	if( *target == dll_at(hn, i) )
+	    return i;
+    }
+    return -1;
+}
+
 int equalPredict(NodeDataType d1, NodeDataType d2)
 {
     if( strcmp(d1, d2) == 0 )
