@@ -70,6 +70,7 @@ Node* dll_searchPredict(HeadNode* hn, NodeDataType data, dll_SearchPredict predi
     {
 	if( predict(n->data, data) )
 	    return n;
+	n = n->next;
     }
 
     return NULL;
