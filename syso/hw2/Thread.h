@@ -1,5 +1,13 @@
 #ifndef __THREAD_H__
 #define __THREAD_H__
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sched.h>
+#include <string.h> 
 #include<unistd.h>
 
 
