@@ -97,7 +97,7 @@ void putMsg(Qcb* qcb, long type, char* data, int size)
 	}
 }
 
-void getMsg(Qcb* qcb, long type, char* data, int size)
+int getMsg(Qcb* qcb, long type, char* data, int size)
 {
 	if( qcb == NULL )
 		return;
@@ -140,12 +140,12 @@ void getMsg(Qcb* qcb, long type, char* data, int size)
 			free(msg->data);
 			free(msg);
 			qcb->msgCount--;
-			return;
+			return 0;
 		}
 		msg = msg->pNext;
 	}
 
-	return;
+	return -1;
 }
 
 // void mqPutThread(Qcb* qcb, Thread* th, long type)
@@ -247,7 +247,6 @@ int 	mymsgsnd(int msqid, const void *msgp, int msgsz, int msgflg)
 	long type = mymsg->mtype;
 	char* text = mymsg->mtext;
 
-	
 	Qcb* qcb = getQcb(msgid);
 	putMSg(qcb, type, text, msgsz);
 
@@ -256,14 +255,24 @@ int 	mymsgsnd(int msqid, const void *msgp, int msgsz, int msgflg)
 	if( th != NULL )
 	{
 		th->status = THREAD_STATUS_READY;
-
+		rqEnqueue(th);
 	}
-
 	return 0;
 }
 
 int	mymsgrcv(int msqid, void *msgp, size_t msgsz, long msgtyp, int msgflg)
 {
+	memset(msgp, 0, msgsz);
+
+	Qcb* qcb = getQcb(msgid);
+	if( qcb == NULL )
+		return 0; // error
+
+	// if msg exists in mq
+	getMsg(Qcb* qcb, long type, char* data, int size)
+	if( getMsg(qcb, msgtyp, (char*)msgp, ))
+	Message* msg = 
+
 	return 0;
 }
 
