@@ -7,9 +7,6 @@
 #include <time.h>
 #include <errno.h>
 #include "Thread.h"
-
-#define TOTAL_THREAD_NUM (5)
-int Tc1ThreadProc(int param);
-void TestCase1(void);
+#include "MsgQueue.h"
 
 #endif

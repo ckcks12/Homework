@@ -1,16 +1,6 @@
 #ifndef __THREAD_H__
 #define __THREAD_H__
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sched.h>
-#include <string.h> 
 #include<unistd.h>
-
-
 
 #define TIMESLICE	(1)
 
@@ -35,6 +25,7 @@ typedef struct _Thread {
 	pid_t				pid;
 	Thread*				pPrev;
 	Thread*				pNext;
+	long				type;	/* added to record message type in Homework2 */
 } Thread;	
 
 
@@ -50,7 +41,7 @@ Thread*		WaitQTail;
 int 		thread_create(thread_t *thread, thread_attr_t *attr, void *(*start_routine) (void *), void *arg);
 int 		thread_join(thread_t thread, void **retval);
 int 		thread_suspend(thread_t tid);
-int		thread_resume(thread_t tid);
+int			thread_resume(thread_t tid);
 int 		thread_cancel(thread_t tid);
 thread_t 	thread_self();
 

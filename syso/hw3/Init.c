@@ -3,6 +3,7 @@
 #include "Thread.h"
 #include "queue.h"
 #include "hashmap.h"
+#include "MsgQueue.h"
 
 void Init(void)
 {
@@ -10,6 +11,14 @@ void Init(void)
     ReadyQTail = NULL;
     WaitQHead = NULL;
     WaitQTail = NULL;
+
+    // message queue init
+    int i = 0;
+    for( i=0; i<MAX_QCB_SIZE; i++ )
+    {
+        qcbTblEntry[i].key =  -1;
+        qcbTblEntry[i].pQcb = NULL;
+    }
 
     ppid = getppid();
     if( __DEBUG__ )

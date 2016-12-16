@@ -21,7 +21,8 @@ int 	thread_create(thread_t *thread, thread_attr_t *attr, void *(*start_routine)
         th->pid = clone(th->entryPt, th->stackAddr + th->stackSize, CLONE_VM | SIGCHLD | CLONE_SIGHAND | CLONE_FS | CLONE_FILES, arg);    
     else
         th->pid = clone(th->entryPt, th->stackAddr + th->stackSize, CLONE_VM | SIGCHLD | CLONE_SIGHAND | CLONE_FS | CLONE_FILES | CLONE_PARENT, arg);
-    
+    th->type = 0;
+
     kill(th->pid, SIGSTOP);
 
     hashPut(getpid(), th->pid);
