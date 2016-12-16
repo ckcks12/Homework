@@ -9,6 +9,7 @@ import java.util.concurrent.Callable;
 public class Main {
     static class Person implements Cloneable{
         int dist = 0;
+        int cmp_cnt = 0;
         boolean done = false;
         LinkedList<Integer> trace = new LinkedList<>();
         public boolean isVisited(int idx)
@@ -33,6 +34,10 @@ public class Main {
                     return false;
             }
             return true;
+        }
+        public int getDepth()
+        {
+            return trace.size() - 1;
         }
         @Override
         protected Person clone() {
@@ -105,9 +110,41 @@ public class Main {
         {
             cmp_cnt++;
 
+            // 큐에서 꺼내기 전에 bound 친다
+
             // 큐에서 하나 꺼낸다
             // 이때 알고리즘 타입에 따라 다르게 꺼낸다
-            person = queue.poll();
+//            person = queue.poll();
+            switch(bound_type)
+            {
+                case 1:
+                    person = queue.poll();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    HashMap<Integer, Integer> map = new HashMap<>();
+                    int max_depth = 0;
+                    for(Person p : queue)
+                    {
+                        if( p.getDepth() > max_depth )
+                            max_depth = p.getDepth();
+
+                        if( ! map.containsKey(p.getDepth()) )
+                        {
+                            map.put(p.getDepth(), p.dist);
+                        }
+                        else
+                        {
+                            if( map.get(p.getDepth()) > p.dist )
+                                map.put(p.getDepth(), p.dist);
+                        }
+                    }
+
+                    break;
+            }
 
             // 모든 곳 다 갔었으면 이제 0으로 빡구하면서 done이랑 비교해본다.
             if( person.isVisitedAll(graph.length) )
@@ -115,12 +152,16 @@ public class Main {
                 person.visit(0, graph[person.trace.getLast()][0]);
                 if( done == null )
                 {
-                    done = person.clone();
+                    person.cmp_cnt = cmp_cnt;
+                    done = person;
                 }
                 else
                 {
                     if( done.dist > person.dist )
-                        done = person.clone();
+                    {
+                        person.cmp_cnt = cmp_cnt;
+                        done = person;
+                    }
                 }
             }
             // 아니라면 갈 수 있는 모든 곳으로 간다
@@ -148,7 +189,8 @@ public class Main {
                 System.out.print("->");
             }
             System.out.println("");
-            System.out.println("compare count : " + String.valueOf(cmp_cnt));
+            System.out.println("compare count : " + String.valueOf(done.cmp_cnt));
+//            System.out.println("compare count : " + String.valueOf(cmp_cnt));
         }
     }
 }
