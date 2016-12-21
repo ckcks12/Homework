@@ -33,7 +33,7 @@ Thread* rqDequeue()
 
     if( __DEBUG__ )
     {
-        // printf("rqDequeue() : ReadyQHead : %p, ReadyQTail : %p\n", ReadyQHead, ReadyQTail);
+        printf("rqDequeue() : ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
     }
 
     if( ReadyQHead == ReadyQTail )
@@ -104,7 +104,7 @@ Thread* rqGet(thread_t tid)
 
 int wqIsEmpty()
 {
-    return WaitQHead == NULL;
+    return WaitQHead == NULL;]
 }
 void wqEnqueue(Thread* th)
 {

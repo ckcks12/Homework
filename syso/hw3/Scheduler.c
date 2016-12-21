@@ -3,11 +3,13 @@
 #include "Scheduler.h"
 #include "queue.h"
 #include "hashmap.h"
+#define _GNU_SOURCE
 
 int is_alarm = 0;
 int is_chld = 0;
 int schedule_cnt = 0;
-int trap = 1;
+
+int trap = 1; // for running scheduler
 
 void handler()
 {
@@ -57,9 +59,61 @@ int		RunScheduler( void )
                     break;
             }
         }
-
-        if( trap == 1 )
+        else
         {
+            if( __DEBUG__ )
+                printf("RunScheduler() : current_thread is NULL, so trap myself!\n");
+            trap = 1;
+        }
+
+        if( trap > 0 )
+        {
+            
+
+            if( is_alarm == 0 )
+            {
+                signal(SIGALRM, handler);
+                is_alarm = 1;
+            }
+
+            // if( is_chld == 0 )
+            // {
+            //     struct sigaction sa;
+            //     memset(&sa, 0, sizeof(struct sigaction));
+            //     sa.sa_sigaction = chldHandler;
+            //     sa.sa_flags = SA_NOCLDSTOP | SA_SIGINFO;
+            //     sigaction(SIGCHLD, &sa, NULL);
+            //     is_chld = 1;
+            // }
+
+            // check current thread status
+            if( current_thread != NULL )
+            {
+                if( kill(current_thread->pid, 0) < 0 )
+                {
+                    thread_cancel(current_thread->pid);
+                }
+                else
+                {
+                    current_thread->status = THREAD_STATUS_READY;
+                    rqEnqueue(current_thread);
+                }
+            }
+
+            if( ! rqIsEmpty() )
+            {
+                new_thread = rqDequeue();
+                new_thread->status = THREAD_STATUS_RUN;
+
+                pid_t c;
+                if( current_thread != NULL )
+                    c = current_thread->pid;
+                else
+                    c = 0;
+
+                _ContextSwitch(c, new_thread->pid);
+            }
+
             // Debug Console
             if( __DEBUG__ )
             {
@@ -99,50 +153,7 @@ int		RunScheduler( void )
 
                 printf("\n\n");
             }
-
-            if( is_alarm == 0 )
-            {
-                signal(SIGALRM, handler);
-                is_alarm = 1;
-            }
-
-            if( is_chld == 0 )
-            {
-                struct sigaction sa;
-                memset(&sa, 0, sizeof(struct sigaction));
-                sa.sa_sigaction = chldHandler;
-                sa.sa_flags = SA_NOCLDSTOP | SA_SIGINFO;
-                sigaction(SIGCHLD, &sa, NULL);
-                is_chld = 1;
-            }
-
-            // check current thread status
-            if( current_thread != NULL )
-            {
-                if( kill(current_thread->pid, 0) < 0 )
-                {
-                    thread_cancel(current_thread->pid);
-                }
-                else
-                {
-                    current_thread->status = THREAD_STATUS_READY;
-                    rqEnqueue(current_thread);
-                }
-            }
-
-            if( ! rqIsEmpty() )
-            {
-                new_thread = rqDequeue();
-                new_thread->status = THREAD_STATUS_RUN;
-
-                pid_t c;
-                if( current_thread != NULL )
-                    c = current_thread->pid;
-                else
-                    c = 0;
-
-                _ContextSwitch(c, new_thread->pid);
-            }
+            
 
             alarm(TIMESLICE);
             trap = 0;

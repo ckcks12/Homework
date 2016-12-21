@@ -2,11 +2,14 @@
 #include <stdlib.h>
 
 #include "TestCase1.h"
+#include "TestCase2.h"
+#include "TestCase3.h"
+
 
 #include "Init.h"
 #include "Scheduler.h"
 #include "Thread.h"
-
+#include "MsgQueue.h"
 
 // #include "Task.h"
 // #include "init.h"
@@ -33,17 +36,13 @@ void main(int argc, char* argv[])
 		case 1:
 		    thread_create(&tid1, NULL, (void*)TestCase1, 0);
 			break;
-		/* 나중 과제 3의 테스트케이스에서 나머지를 살려 테스트 할 것임.
 		case 2:
 			thread_create(&tid2, NULL, (void*)TestCase2, 0);
 		    break;
 		case 3:
 			thread_create(&tid3, NULL, (void*)TestCase3, 0);
 		   	break;
-		case 4:
-			thread_create(&tid4, NULL, (void*)TestCase4, 0);
-			break;
-		*/
+		
 	}
 
 	RunScheduler();

@@ -2,6 +2,11 @@
 #define __HASHMAP__
 #include "Thread.h"
 #include <stdlib.h>
+#include "Init.h"
+#include "Thread.h"
+#include "Scheduler.h"
+#include "queue.h"
+#include "hashmap.h"
 
 
 #define MAX_THREAD 100

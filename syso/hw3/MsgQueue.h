@@ -7,6 +7,7 @@
 #define MAX_MSG_SIZE	(1024)
 #define MAX_QCB_SIZE	(32)
 
+#define MY_IPC_RMID	(1)
 
 typedef struct _Message Message;
 typedef struct _Message {
@@ -39,7 +40,7 @@ QcbTblEntry  qcbTblEntry[MAX_QCB_SIZE];
 void	_InitMsgQueue(void);
 int 	mymsgget(int key, int msgflg);
 int 	mymsgsnd(int msqid, const void *msgp, int msgsz, int msgflg);
-int	    mymsgrcv(int msqid, void *msgp, size_t msgsz, long msgtyp, int msgflg);
+int		mymsgrcv(int msqid, void *msgp, int msgsz, long msgtyp, int msgflg);
 int 	mymsgctl(int msqid, int cmd, void* buf);
 
 
