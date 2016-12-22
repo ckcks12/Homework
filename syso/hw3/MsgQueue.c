@@ -9,9 +9,20 @@
 
 
 
-/* ¹İµå½Ã ±¸ÇöÇÒ ÇÊ¿ä´Â ¾øÀ½. ¸¸ÀÏ ±¸ÇöÇß´Ù¸é, Init.c¿¡ ÀÖ´Â Init()¿¡ Ãß°¡ÇØ¾ß ÇÔ.*/ 
+/* Â¹ÃÂµÃ¥Â½Ãƒ Â±Â¸Ã‡Ã¶Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â´Ã‚ Â¾Ã¸Ã€Â½. Â¸Â¸Ã€Ã Â±Â¸Ã‡Ã¶Ã‡ÃŸÂ´Ã™Â¸Ã©, Init.cÂ¿Â¡ Ã€Ã–Â´Ã‚ Init()Â¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸ Ã‡Ã”.*/ 
 void _InitMsgQueue(void)
 {
+}
+
+int checkQcb(int key)
+{
+	int i = 0;
+	for( i=0; i<MAX_QCB_SIZE; i++ )
+	{
+		if( qcbTblEntry[i].key == key )
+			return 1;
+	}
+	return 0;
 }
 
 Qcb* getQcb(int key)
@@ -97,7 +108,7 @@ void deleteQcb(int key)
 			{
 				msg2 = msg;
 				msg = msg->pNext;
-				free(msg2->data);
+				// free(msg2->data);
 				free(msg2);
 			}
 
@@ -107,6 +118,9 @@ void deleteQcb(int key)
 				th = th->pNext;
 				th2->pPrev = NULL;
 				th2->pNext = NULL;
+				// thread_cancel(th2->pid);
+				th2->status = THREAD_STATUS_READY;
+				rqEnqueue(th2);
 			}
 
 			free(qcbTblEntry[i].pQcb);
@@ -126,7 +140,7 @@ void putMsg(Qcb* qcb, long type, char* data, int size)
 
 	msg->type = type;
 	// msg->data = (char*)malloc(MAX_MSG_SIZE);
-	strcpy(msg->data, data);
+	strncpy(msg->data, data, size);
 	msg->size = size;
 
 	if( qcb->pMsgHead == NULL )
@@ -144,20 +158,20 @@ void putMsg(Qcb* qcb, long type, char* data, int size)
 	}
 }
 
-int getMsg(Qcb* qcb, long type, Message* data, int size)
+int getMsg(Qcb* qcb, long type, Message* data)
 {
 	if( qcb == NULL )
 		return -1;
 
 	Message* msg;
 
-	memset(data, 0, size);
+	memset(data, 0, sizeof(Message));
 
 	msg = qcb->pMsgHead;
 	while( msg != NULL )
 	{
-		if( __DEBUG__ )
-			printf("getMsg() : msg == NULL ? %d", msg == NULL);
+		// if( __DEBUG__ )
+		// 	printf("getMsg() : msg == NULL ? %d", msg == NULL);
 
 		if( msg->type == type )
 		{
@@ -177,7 +191,7 @@ int getMsg(Qcb* qcb, long type, Message* data, int size)
 			else if( msg->pPrev != NULL && msg->pNext == NULL )
 			{
 				msg->pPrev->pNext = NULL;
-				qcb->pMsgTail - msg->pPrev;
+				qcb->pMsgTail = msg->pPrev;
 				msg->pPrev = NULL;
 			}
 			else if( msg->pPrev == NULL && msg->pNext == NULL )
@@ -186,10 +200,13 @@ int getMsg(Qcb* qcb, long type, Message* data, int size)
 				qcb->pMsgTail = NULL;
 			}
 
-			if( __DEBUG__ )
-				printf("getMsg() : %ld size message delivered\n", strlen(msg->data));
+			// if( __DEBUG__ )
+			// 	printf("getMsg() : %ld size message delivered\n", strlen(msg->data));
 
-			memcpy((void*)data, msg, sizeof(msg));
+			data->type = msg->type;
+			strcpy(data->data, msg->data);
+			data->size = msg->size;
+			free(msg);
 			qcb->msgCount--;
 			return 0;
 		}
@@ -319,7 +336,7 @@ int 	mymsgsnd(int msqid, const void *msgp, int msgsz, int msgflg)
 
 int	mymsgrcv(int msqid, void *msgp, int msgsz, long msgtyp, int msgflg)
 {
-	printf("rqDequeue() : ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
+	// printf("rqDequeue() : ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
 	Message msg;
 	
 	memset(msgp, 0, sizeof(MyMsg));
@@ -329,7 +346,7 @@ int	mymsgrcv(int msqid, void *msgp, int msgsz, long msgtyp, int msgflg)
 		return -1; // error
 
 	// if msg exists in mq
-	if( getMsg(qcb, msgtyp, &msg, msgsz) == 0 )
+	if( getMsg(qcb, msgtyp, &msg) == 0 )
 	{
 		((MyMsg*)msgp)->mtype = msg.type;
 		strncpy(((MyMsg*)msgp)->mtext, msg.data, msgsz);
@@ -339,32 +356,30 @@ int	mymsgrcv(int msqid, void *msgp, int msgsz, long msgtyp, int msgflg)
 	// wait
 	if( __DEBUG__ )
 		printf("mymsgrcv() : gonna wait\n");
-	// rqDelete(current_thread);
-	printf("current_thread : %d(%p)\n", current_thread->pid, current_thread);
-	printf("rqDequeue() : ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
 	current_thread->type = msgtyp;
-	mqPutThread(qcb, current_thread);
 	current_thread->status = THREAD_STATUS_BLOCKED;
+	mqPutThread(qcb, current_thread);
 	current_thread = NULL;
-	printf("rqDequeue() : ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
 	kill(thread_self(), SIGSTOP);
 	if( __DEBUG__ )
 		printf("mymsgrcv() : somebody awake me\n");
 
 	// if wake, a message had been arrived
-	if( getMsg(qcb, msgtyp, &msg, msgsz) == 0 )
+	if( checkQcb(msqid) == 1 )
 	{
-		((MyMsg*)msgp)->mtype = msg.type;
-		strncpy(((MyMsg*)msgp)->mtext, msg.data, msgsz);
-		return 0;
+		if( getMsg(qcb, msgtyp, &msg) == 0 )
+		{
+			((MyMsg*)msgp)->mtype = msg.type;
+			strncpy(((MyMsg*)msgp)->mtext, msg.data, msgsz);
+			return 0;
+		}
 	}
-
+	
 	return -1;
 }
 
 int 	mymsgctl(int msqid, int cmd, void* buf)
 {
 	deleteQcb(msqid);
-
 	return 0;
 }

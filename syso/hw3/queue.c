@@ -104,7 +104,7 @@ Thread* rqGet(thread_t tid)
 
 int wqIsEmpty()
 {
-    return WaitQHead == NULL;]
+    return WaitQHead == NULL;
 }
 void wqEnqueue(Thread* th)
 {

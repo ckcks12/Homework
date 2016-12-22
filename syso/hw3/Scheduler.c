@@ -89,21 +89,31 @@ int		RunScheduler( void )
             // check current thread status
             if( current_thread != NULL )
             {
-                if( kill(current_thread->pid, 0) < 0 )
-                {
-                    thread_cancel(current_thread->pid);
-                }
-                else
-                {
-                    current_thread->status = THREAD_STATUS_READY;
-                    rqEnqueue(current_thread);
-                }
+                // if( kill(current_thread->pid, 0) < 0 )
+                // {
+                //     thread_cancel(current_thread->pid);
+                // }
+                // else
+                // {
+                //     current_thread->status = THREAD_STATUS_READY;
+                //     rqEnqueue(current_thread);
+                // }
+                current_thread->status = THREAD_STATUS_READY;
+                rqEnqueue(current_thread);
             }
 
             if( ! rqIsEmpty() )
             {
+                if( __DEBUG__ && !rqIsEmpty() )
+                {
+                    printf("RunSchedule() : 1 ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
+                }
                 new_thread = rqDequeue();
                 new_thread->status = THREAD_STATUS_RUN;
+                if( __DEBUG__ && !rqIsEmpty() )
+                {
+                    printf("RunSchedule() : 2 ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
+                }
 
                 pid_t c;
                 if( current_thread != NULL )
@@ -112,6 +122,12 @@ int		RunScheduler( void )
                     c = 0;
 
                 _ContextSwitch(c, new_thread->pid);
+
+                if( __DEBUG__ && !rqIsEmpty() )
+                {
+                    printf("RunSchedule() : 3 ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
+                }
+                
             }
 
             // Debug Console
@@ -131,12 +147,22 @@ int		RunScheduler( void )
                     printf("(((%d(%p))))-> ", current_thread->pid, current_thread);
                 }
 
+                if( __DEBUG__ && !rqIsEmpty() )
+                {
+                    printf("RunSchedule() : 4 ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
+                }
+
                 while( th != NULL )
                 {
                     printf("%d(%p)-> ", th->pid, th);
                     th = th->pNext;
                 }
                 printf("\n");
+
+                if( __DEBUG__ && !rqIsEmpty() )
+                {
+                    printf("RunSchedule() : 5 ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
+                }
 
                 printf("WaitQueue Status\n");
                 th = WaitQHead;
@@ -154,6 +180,10 @@ int		RunScheduler( void )
                 printf("\n\n");
             }
             
+            if( __DEBUG__ && !rqIsEmpty() )
+            {
+                printf("RunSchedule() : - ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
+            }
 
             alarm(TIMESLICE);
             trap = 0;
@@ -161,10 +191,30 @@ int		RunScheduler( void )
     }
 }
 
+void rqStatus() {
+    printf("\nReadyQueue Status\n");
+    Thread* th;
+    th = ReadyQHead;
+
+    if( current_thread != NULL )
+    {
+        printf("(((%d(%p))))-> ", current_thread->pid, current_thread);
+    }
+
+    while( th != NULL )
+    {
+        printf("%d(%p)-> ", th->pid, th);
+        th = th->pNext;
+    }
+    printf("\n");
+}
 
 // void		_ContextSwitch(int curpid, int tpid)
 void _ContextSwitch(int c, int n)
 {
+    if( __DEBUG__ && !rqIsEmpty() )
+        printf("_ContextSwitch() : 1 ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
+
     if( c != 0 )
     {
         kill(c, SIGSTOP);
@@ -172,5 +222,8 @@ void _ContextSwitch(int c, int n)
     }
     kill(n, SIGCONT);
     current_thread = new_thread;
+
+    if( __DEBUG__ && !rqIsEmpty() )
+        printf("_ContextSwitch() : 2 ReadyQHead : %d(%p), ReadyQTail : %d(%p)\n", ReadyQHead->pid, ReadyQHead, ReadyQTail->pid, ReadyQTail);
 }
 

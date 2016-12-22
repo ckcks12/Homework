@@ -22,7 +22,7 @@
 #include "MsgQueue.h"
 #include <unistd.h>
 
-#define __DEBUG__ 1
+#define __DEBUG__ 0
 
 int rqIsEmpty();
 void rqEnqueue(Thread*);
@@ -38,7 +38,7 @@ Thread* wqGet(thread_t);
 
 pid_t ppid;
 
-#define MSG_TEXT_SIZE          1024
+#define MSG_TEXT_SIZE          512
 typedef struct _MyMsg{
      long mtype;                /* message type */
      char mtext[MSG_TEXT_SIZE]; /*message text (or body) */
